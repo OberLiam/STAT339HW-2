@@ -48,8 +48,11 @@ def convertpoly(data, D, axis=1):
     col = data[:,axis]
     t = data[:,-1]
     #TODO: make this line prettier
-    pdata = np.array([col**i for i in range(1,D+1)]).T
-    return np.column_stack((ones, pdata,t))
+    if D == 0:
+        return np.column_stack((ones, t))
+    else:
+        pdata = np.array([col**i for i in range(1,D+1)]).T
+        return np.column_stack((ones, pdata,t))
 
 
 #gets the big X matrix
