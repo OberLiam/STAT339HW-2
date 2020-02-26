@@ -53,6 +53,67 @@ When we applied our polynomial regression solver to the ``synthdata2016.csv'' da
 \end{figure}
 
 \newpage
+\section*{Exercise 2}
+\subsection*{part(d)}
+For womens100.csv, when K equals 10, optimal polynomial order according to the validation set is 2. 
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{K=10_women.png}
+    \caption{Validation error for ``womens100.csv''(K=10)}
+    \label{fig:my_label}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{K=10_women_t.png}
+    \caption{Train error for ``womens100.csv''(K=10)}
+    \label{fig:my_label}
+\end{figure}
+When K equals N, optimal polynomial order according to the validation set is 2. The situation for the two K values is similar: it is hard to tell that one polynomial order is significantly better than the other due to the high standard deviation range in the validation error graph, however the training error graph makes sense since the graph can nearly perfectly fit every point when the order approaches the number of points, and possibly the original curve has polynomial around 2.5 so that's where training error was lowest.\\
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{K=N_women.png}
+    \caption{Validation error for ``womens100.csv''(K=N)}
+    \label{fig:my_label}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{K=N_women_t.png}
+    \caption{Train error for ``womens100.csv''(K=N)}
+    \label{fig:my_label}
+\end{figure}
+$ $\\
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{K=10_synth.png}
+    \caption{Validation error for ``womens100.csv''(K=10)}
+    \label{fig:my_label}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{K=10_synth_t.png}
+    \caption{Train error for ``womens100.csv''(K=10)}
+    \label{fig:my_label}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{K=N_synth.png}
+    \caption{Validation error for ``womens100.csv''(K=N)}
+    \label{fig:my_label}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{K=N_synth_t.png}
+    \caption{Train error for ``womens100.csv''(K=N)}
+    \label{fig:my_label}
+\end{figure}
+For synthdata2016.csv, when K equals 10, optimal order is 4 according to the validation error graph. When K equals N, optimal order is 12. Both K values give very strange looking training error graphs. This might be due to the size of the dataset. Validation error graphs are reasonable similar to those for womens100.csv.
+
+\subsection*{part(e)}
+
+\subsection*{part(f)}
+Grid search $\lambda$ from 1 to 16 and D from 1 to 16. For synthedata2016.csv, optimal pair is $\lambda = 5$ and $D=1$. Error for OLS is 0.05985, error for ridge regression is 0.062429. For womens100.csv, optimal pair is $\lambda = 2$ and $D=1$. Error for OLS is 0.0002554 and error for ridge regression is 0.0030068. It seems that ridge regression requires more fine tuning in hyperparameteres, probably $\lambda$ and D with shorter intervals within a larger range. With bad hyperparameters it is easily outperformed by OLS.
+
+\newpage
 
 \section*{Exercise 3}
 \subsection*{part(a)}
