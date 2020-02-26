@@ -144,7 +144,7 @@ def getOLSerror(data, classifier, scale=None):
 
 
 # (f)
-def getOLSpoly(ordinarydata, D, axis=1):
+def getOLSpoly(ordinarydata, D, regparam=1, axis=1):
     return getOLS(convertpoly(ordinarydata, D, axis), 1)
 
 

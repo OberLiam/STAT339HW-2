@@ -42,7 +42,7 @@ def cross_val(ordinarydata, K, seed=1, lam=0, train_err=False):
 
 
 # (c)
-def best_order(ordinarydata, K, seed, ret_err=False, D=None):
+def best_order(ordinarydata, K, seed, ret_err=False, D=None, regparam=1):
     if D is None:
         D = np.shape(ordinarydata)[0]
     total = np.shape(ordinarydata)[0]
@@ -79,7 +79,7 @@ def best_order(ordinarydata, K, seed, ret_err=False, D=None):
     sds = np.std(KD_matrix, axis=0)
     means_train = np.mean(KD_matrix_train, axis=0)
     sds_train = np.std(KD_matrix_train, axis=0)
-    best_index = np.argmin(means)
+    best_index = np.argmin(means[1:])+1
     if ret_err is True:
         return means, sds, means_train, sds_train, best_index
     else:
@@ -96,7 +96,7 @@ def get_errors(truedata, maxD, testdata):
     
 
 def main():
-    data = reg.getdataset("womens100.csv")
+    data = reg.getdataset("synthdata2016.csv")
     scale = reg.scaledata(data)
     print(data)
     print(reg.getOLSpoly(data, 16))
@@ -109,34 +109,43 @@ def main():
     x = np.arange(np.shape(means)[0])
     
     
-    newdata = reg.getdataset("modernwomens100.csv") / scale
-    errors = get_errors(data, len(x)-1, newdata) * (scale[-1])
-    
-    
-    plt.errorbar(x, means, sds, linestyle='None',fmt='o', ecolor='g', capthick=2)
-    print("ERRORS",errors)
-    plt.scatter(x,errors, c='r')
-    
-    #plt.margins(x=0, y=-0.25)
-    plt.show()  # This plot looks ugly due to one enormous standard deviation value
-
-    print(means)
-    print(sds)
-    print(best_index)
-
-    # K=N
-    # print(np.shape(data))
-    # means, sds, best_index = best_order(data, 10, 1)
-    # x = np.arange(np.shape(means)[0])
+    # newdata = reg.getdataset("modernwomens100.csv") / scale
+    # errors = get_errors(data, len(x)-1, newdata) * (scale[-1])
     #
-    # plt.errorbar(x, means, sds, linestyle='None', fmt='o', ecolor='g', capthick=2)
-    # plt.margins(x=0, y=-0.25)
-    # plt.show()  # This plot looks ugly due to one enormous standard deviation value
+    #
+    plt.errorbar(x, means, sds, linestyle='None',fmt='o', ecolor='g', capthick=2)
+    # print("ERRORS",errors)
+    # plt.scatter(x,errors, c='r')
+    #
+    # #plt.margins(x=0, y=-0.25)
+    plt.show()  # This plot looks ugly due to one enormous standard deviation value
     #
     # print(means)
     # print(sds)
-    # print(best_index)
+    print(best_index)
 
+
+
+
+    #K=N
+    print(np.shape(data))
+    means, sds, best_index = best_order(data, np.shape(data)[0], 1)
+    means *= (scale[-1] ** 2)
+    sds *= (scale[-1] ** 2)  # I think...
+    x = np.arange(np.shape(means)[0])
+
+    plt.errorbar(x, means, sds, linestyle='None', fmt='o', ecolor='g', capthick=2)
+    #plt.margins(x=0, y=-0.25)
+    plt.show()  # This plot looks ugly due to one enormous standard deviation value
+
+    # print(means)
+    # print(sds)
+    print(best_index)
+
+    best = 999999
+    for i in range(6):
+        for j in range(6):
+            means, sds, best_index = best_order(data, 10, 1, D=i)
 
 
 if __name__ == "__main__":
