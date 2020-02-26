@@ -62,13 +62,10 @@ def getX(data):
 # This function takes in a data set (as returned by getdataset) and returns the
 # OLS parameters (w_0,w_1) such that t_n ~ w_0 + w_1*x_n
 # regparam is the regularization parameter (lambda) if you are using it
-# TODO: implement regparam here
 def getOLS(data, regparam=1):
     X = getX(data)  # the big X matrix
     t = data[:, -1]  # the target data
     M = len(X[0])
-    #try:
-    regparam=0.05
     operation = np.dot(np.linalg.inv(np.dot(X.T, X) + regparam * np.identity(M)), X.T)
     return np.dot(operation, t)
     # except np.linalg.LinAlgError as e:
@@ -170,7 +167,7 @@ def predictorfunc(knowndata):
 
 def main():
     mydata = getdataset("synthdata2016.csv")
-    mypolydata = convertpoly(mydata, 4)
+    mypolydata = convertpoly(mydata, 1)
     mypolyscale = scaledata(mypolydata)
     myclassifier = getOLS(mypolydata, regparam=0)
     plotoutputpoly(mypolydata, myclassifier, "graph of a quadratic fit to womens 100m times", scale=mypolyscale)

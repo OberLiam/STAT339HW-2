@@ -55,7 +55,6 @@ def best_order(ordinarydata, K, seed, ret_err=False, D=None):
     np.random.seed(seed)
     shuffled_set = np.copy(ordinarydata)
     np.random.shuffle(shuffled_set)
-    D+=10
     KD_matrix = np.empty((K, D+1))
     KD_matrix_train = np.empty((K, D+1))
     for i in range(K):
@@ -65,6 +64,7 @@ def best_order(ordinarydata, K, seed, ret_err=False, D=None):
         train_set = np.concatenate((shuffled_set[:start], shuffled_set[end:]))
         for j in range(D+1):
             W = reg.getOLSpoly(train_set, j)
+            ########W = reg.getOLS(train_set, j, regparam=1)
             W = np.expand_dims(W, axis=1)
             converted = reg.convertpoly(val_set[:,:-1], j)
             #print(converted)
@@ -85,21 +85,27 @@ def best_order(ordinarydata, K, seed, ret_err=False, D=None):
     else:
         return means, sds, best_index
 
-
+#def get_errors(data, ):
+    
 
 def main():
     data = reg.getdataset("womens100.csv")
     scale = reg.scaledata(data)
     print(data)
-
     print(reg.getOLSpoly(data, 16))
     # K=10
     means, sds, best_index = best_order(data, 10, 1)
-    x = np.arange(np.shape(means)[0])
+    
     means *= scale[-1]
-    print("MEANS:",means)
     sds *= scale[-1]
-
+    
+    x = np.arange(np.shape(means)[0])
+    
+    
+    newdata = reg.getdataset("modernwomens100.csv")
+    
+    
+    
     plt.errorbar(x, means, sds, linestyle='None',fmt='o', ecolor='g', capthick=2)
     #plt.margins(x=0, y=-0.25)
     plt.show()  # This plot looks ugly due to one enormous standard deviation value
