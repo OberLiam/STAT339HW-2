@@ -21,7 +21,7 @@ from matplotlib import pyplot as plt
 # of the form (t,x,x,x...)
 # also returns the scale, to keep track of mater on.
 def getdataset(file):
-    rawdata = pd.read_csv(file).to_numpy()
+    rawdata = pd.read_csv(file, header=None).to_numpy()
     N = len(rawdata)
     ones = np.repeat(1, N)
     return np.column_stack((ones, rawdata))
@@ -63,17 +63,18 @@ def getX(data):
 # OLS parameters (w_0,w_1) such that t_n ~ w_0 + w_1*x_n
 # regparam is the regularization parameter (lambda) if you are using it
 # TODO: implement regparam here
-def getOLS(data, regparam=0):
+def getOLS(data, regparam=1):
     X = getX(data)  # the big X matrix
     t = data[:, -1]  # the target data
     M = len(X[0])
-    try:
-        operation = np.dot(np.linalg.inv(np.dot(X.T, X) + regparam * np.identity(M)), X.T)
-        return np.dot(operation, t)
-    except np.linalg.LinAlgError as e:
-        print("error")
-        print(X)
-        print(M)
+    #try:
+    regparam=0.05
+    operation = np.dot(np.linalg.inv(np.dot(X.T, X) + regparam * np.identity(M)), X.T)
+    return np.dot(operation, t)
+    # except np.linalg.LinAlgError as e:
+    #     print("error")
+    #     print(X)
+    #     print(M)
 
 
 # Takes in a data-set (as given by getdataset) and returns the prediction according
