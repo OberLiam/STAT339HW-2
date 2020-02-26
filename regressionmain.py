@@ -62,7 +62,7 @@ def getX(data):
 # This function takes in a data set (as returned by getdataset) and returns the
 # OLS parameters (w_0,w_1) such that t_n ~ w_0 + w_1*x_n
 # regparam is the regularization parameter (lambda) if you are using it
-def getOLS(data, regparam=1):
+def getOLS(data, regparam=0):
     X = getX(data)  # the big X matrix
     t = data[:, -1]  # the target data
     M = len(X[0])
@@ -167,10 +167,14 @@ def predictorfunc(knowndata):
 
 def main():
     mydata = getdataset("synthdata2016.csv")
+    #myclassifier = getOLS(mydata)
+    #plotoutput(mydata, myclassifier, "Womens 100m linear fit")
+    #print("Optimal values of w:",myclassifier)
+    
     mypolydata = convertpoly(mydata, 3)
     mypolyscale = scaledata(mypolydata)
     myclassifier = getOLS(mypolydata, regparam=0)
-    plotoutputpoly(mypolydata, myclassifier, "graph of a cubic fit", scale=mypolyscale)
+    plotoutputpoly(mypolydata, myclassifier, "cubic fit for synthdata", scale=mypolyscale)
 
 
 if __name__ == "__main__":

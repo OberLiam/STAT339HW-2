@@ -4,6 +4,7 @@
 \usepackage{graphicx, mathabx}
 \usepackage{color}
 \usepackage{graphicx}
+\usepackage{float}
 \graphicspath{ {./images/} }
 \linespread{1.5}
 \newcommand{\vect}[1]{\mathbf{#1}}
@@ -14,6 +15,45 @@
 \date{\today}
 
 \maketitle
+
+\section*{Exercise 1}
+
+\subsection*{part(b)}
+
+We applied our own OLS solver to the ``womens100.csv'' data set, with the results shown below:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{Figure_womesn100.png}
+    \caption{Graph of ``womens100.csv'' best fit}
+    \label{fig:my_label}
+\end{figure}
+
+The line shown on the graph is $y = w_0 + w_1 x$ where $w_0 = 40.09$ and $w_1 = -0.015$.
+
+We compared this to the line given in the textbook, which has $w_0 = 40.92$ and $w_1 = -0.015$.
+
+These values are very close, and tell us that our regression solver is correctly finding a line of best fit.
+
+\subsection*{part(c)}
+
+Our algorithm predicted a value for the 2012 Olympics of 10.647, and it predicted a value for the 2016 Olympics of 10.593s. The actual racetime for 2012 is 10.75s, and the actual racetime for 2016 is 10.71s. These are both a little high of the actual value, but the difference is not prominent.
+
+In fact, the squared prediction error for 2012 is 0.0106 and the squared prediction error for 2016 is 0.0136.
+
+\subsection*{part(g)}
+
+When we applied our polynomial regression solver to the ``synthdata2016.csv'' data set, looking for a cubic of best fit, we got the following:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{Figure_synthdata.png}
+    \caption{Graph of ``synthdata2016.csv'' best fit}
+    \label{fig:my_label}
+\end{figure}
+
+\newpage
+
 \section*{Exercise 3}
 \subsection*{part(a)}
 \begin{proof}
