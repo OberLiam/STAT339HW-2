@@ -132,7 +132,7 @@ def plotoutputpoly(data, classifier, title, *, scale=None):
 
 
 # This isn't actually required, but I wrote it, so it's staying.
-# returns the total squared error from solver
+# returns the mean squared error from solver
 def getOLSerror(data, classifier, scale=None):
     true = data[:, -1]
     pred = getpred(classifier, data)
@@ -140,7 +140,7 @@ def getOLSerror(data, classifier, scale=None):
         true *= scale[-1]
         pred *= scale[-1]
     ret = (pred - true) * (pred - true)
-    return np.sum(ret)
+    return np.sum(ret)/len(ret)
 
 
 # (f)
@@ -167,10 +167,10 @@ def predictorfunc(knowndata):
 
 def main():
     mydata = getdataset("synthdata2016.csv")
-    mypolydata = convertpoly(mydata, 1)
+    mypolydata = convertpoly(mydata, 3)
     mypolyscale = scaledata(mypolydata)
     myclassifier = getOLS(mypolydata, regparam=0)
-    plotoutputpoly(mypolydata, myclassifier, "graph of a quadratic fit to womens 100m times", scale=mypolyscale)
+    plotoutputpoly(mypolydata, myclassifier, "graph of a cubic fit", scale=mypolyscale)
 
 
 if __name__ == "__main__":

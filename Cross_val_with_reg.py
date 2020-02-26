@@ -85,7 +85,14 @@ def best_order(ordinarydata, K, seed, ret_err=False, D=None):
     else:
         return means, sds, best_index
 
-#def get_errors(data, ):
+def get_errors(truedata, maxD, testdata):
+    ret = np.empty(maxD+1)
+    for D in range(maxD+1):
+        polytestdata = reg.convertpoly(testdata, D)
+        polytruedata = reg.convertpoly(truedata, D)
+        classifier = reg.getOLS(polytestdata)
+        ret[D] = reg.getOLSerror(polytruedata, classifier)
+    return ret
     
 
 def main():
@@ -96,17 +103,20 @@ def main():
     # K=10
     means, sds, best_index = best_order(data, 10, 1)
     
-    means *= scale[-1]
-    sds *= scale[-1]
+    means *= (scale[-1]**2)
+    sds *= (scale[-1]**2) #I think...
     
     x = np.arange(np.shape(means)[0])
     
     
-    newdata = reg.getdataset("modernwomens100.csv")
-    
+    newdata = reg.getdataset("modernwomens100.csv") / scale
+    errors = get_errors(data, len(x)-1, newdata) * (scale[-1])
     
     
     plt.errorbar(x, means, sds, linestyle='None',fmt='o', ecolor='g', capthick=2)
+    print("ERRORS",errors)
+    plt.scatter(x,errors, c='r')
+    
     #plt.margins(x=0, y=-0.25)
     plt.show()  # This plot looks ugly due to one enormous standard deviation value
 
