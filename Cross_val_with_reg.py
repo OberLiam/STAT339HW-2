@@ -111,14 +111,13 @@ def main():
     sds_train *= (scale[-1] ** 2)
     x = np.arange(np.shape(means)[0])  # I think...
 
-    # newdata = reg.getdataset("modernwomens100.csv") / scale
-    # errors = get_errors(data, len(x)-1, newdata) * (scale[-1])
-    #
-    #
+    newdata = reg.getdataset("modernwomens100.csv") / scale
+    errors = get_errors(data, len(x)-1, newdata) / (scale[-1])
     plt.errorbar(x, means, sds, linestyle='None', fmt='o', ecolor='g', capthick=2)
-    # print("ERRORS",errors)
-    # plt.scatter(x,errors, c='r')
-    #
+    plt.scatter(x,errors, c='r')
+    print("ERRORS: ",errors)
+
+
     # #plt.margins(x=0, y=-0.25)
     plt.show()  # This plot looks ugly due to one enormous standard deviation value
     #

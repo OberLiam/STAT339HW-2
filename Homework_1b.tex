@@ -24,7 +24,7 @@ We applied our own OLS solver to the ``womens100.csv'' data set, with the result
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.8]{Figure_womesn100.png}
+    \includegraphics[scale=0.8]{Figure_womens100.png}
     \caption{Graph of ``womens100.csv'' best fit}
     \label{fig:my_label}
 \end{figure}
@@ -108,7 +108,16 @@ $ $\\
 \end{figure}
 For synthdata2016.csv, when K equals 10, optimal order is 4 according to the validation error graph. When K equals N, optimal order is 12. Both K values give very strange looking training error graphs. This might be due to the size of the dataset. Validation error graphs are reasonable similar to those for womens100.csv.
 
-\subsection*{part(e)}
+\subsection*{part(e)} We applied our solvers to the women's top 100m times in 2012 and 2016, for the following results:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{womenserrors.png}
+    \caption{Solver applied to 2012 and 2016 data. Red dots are the error for 2012 and 2016 data sets, blue dots are the performance from cross-validation}
+    \label{fig:my_label}
+\end{figure}
+
+You can see the error increases dramatically at higher polynomial degrees. The optimal value of D ended up being 2, which is not what our solver reported. However, due to the small size of the data set being tested, this is not surprising.
 
 \subsection*{part(f)}
 Grid search $\lambda$ from 1 to 16 and D from 1 to 16. For synthedata2016.csv, optimal pair is $\lambda = 5$ and $D=1$. Error for OLS is 0.05985, error for ridge regression is 0.062429. For womens100.csv, optimal pair is $\lambda = 2$ and $D=1$. Error for OLS is 0.0002554 and error for ridge regression is 0.0030068. It seems that ridge regression requires more fine tuning in hyperparameteres, probably $\lambda$ and D with shorter intervals within a larger range. With bad hyperparameters it is easily outperformed by OLS.

@@ -1,8 +1,0 @@
-Responses to section 1:
-
-(c)
-
-My algorithm predicted a value for the 2012 Olympics of 10.647s.
-My algorithm predicted a value for the 2012 Olympics of 10.593s.
-The actual racetime for 2012 is 10.75s, which is close to the predicted value, but a little high!
-The actual racetime for 2016 is 10.71s, which also close, but high of, the predicted value.
